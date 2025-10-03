@@ -17,7 +17,7 @@ pros::Imu imu(7);
 pros::Rotation horizontalEnc(19);
 pros::Rotation verticalEnc(20);
 lemlib::TrackingWheel horizontal(&horizontalEnc, lemlib::Omniwheel::NEW_2, -1.85);
-lemlib::TrackingWheel vertical(&verticalEnc, lemlib::Omniwheel::NEW_2, -1);
+lemlib::TrackingWheel vertical(&verticalEnc, lemlib::Omniwheel::NEW_2, -0.85);
 
 // drivetrain settings
 lemlib::Drivetrain drivetrain(&leftMotors, 

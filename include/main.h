@@ -44,9 +44,9 @@
 #include "api.h" // IWYU pragma: keep
 #include "intake_function.hpp" // IWYU pragma: keep
 #include "subsystems.hpp" // IWYU pragma: keep
+#include "touchscreen.hpp" // IWYU pragma: keep
 // Auton registry and definitions
 #include "auton/auton.hpp" // IWYU pragma: keep
-#include "auton/registry.hpp" // IWYU pragma: keep
 
 /* All pros headers */
 #include "pros/abstract_motor.hpp" // IWYU pragma: keep

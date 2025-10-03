@@ -1,7 +1,7 @@
 #include "main.h"
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "touchscreen.hpp"
-#include "auton/registry.hpp"
+
 
 // controller
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
@@ -25,27 +25,26 @@ void initialize() {
     touchscreen_int();
    
 
-    // the default rate is 50. however, if you need to change the rate, you
-    // can do the following.
-    // lemlib::bufferedStdout().setRate(...);
-    // If you use bluetooth or a wired connection, you will want to have a rate of 10ms
-
-    // for more information on how the formatting for the loggers
-    // works, refer to the fmtlib docs
-
-    // thread to for brain screen and position logging
-    // pros::Task screenTask([&]() {
-    //     while (true) {
-    //         // print robot location to the brain screen
-    //         pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
-    //         pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
-    //         pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
-    //         // log position telemetry
-    //         lemlib::telemetrySink()->info("Chassis pose: {}", chassis.getPose());
-    //         // delay to save resources
-    //         pros::delay(50);
-    //     }
-    // });
+    int sel = ui::selected_auton();
+    pros::lcd::print(3, "Selected auton: %d", sel);
+    
+    switch(sel) {
+        case 0:
+            blueWqeAuton();
+            break;
+        case 1:
+            redWqeAuton();
+            break;
+        case 2:
+            skillsAuton();
+            break;
+        case 3:
+            doNothingAuton();
+            break;
+        default:
+            pros::lcd::print(4, "Invalid auton selection");
+            break;
+    }
 }
 
 /**
@@ -70,24 +69,14 @@ ASSET(example_txt); // '.' replaced with "_" to make c++ happy
 void autonomous() {
     // show which auton was selected on the brain screen
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-    /*
-    int sel = ui::selected_auton();
-    pros::lcd::print(3, "Selected auton: %d", sel);
-    const auto& list = auton::Registry::instance().autons();
-    if (sel >= 0 && sel < (int)list.size()) {
-        auto a = list[sel];
-        if (a) a->run();
-    } else {
-        // invalid selection - do nothing
-    }
-    */
+    
     chassis.setPose(61, 16, 270);
         
         intakeFunctionAuton( intakeMid,127);
-        chassis.moveToPose(27, 25, 230, 4000,{.forwards = true , .minSpeed=45});
+        chassis.moveToPose(27, 25, 230, 4000,{.forwards = true , .minSpeed=70});
         chassis.waitUntilDone();
         // to the mid goal
-        chassis.moveToPose(13.6, 12.8, 230, 4000,{.forwards = true , .minSpeed=45});
+        chassis.moveToPose(11, 12, 230, 4000,{.forwards = true , .minSpeed=80});
         chassis.waitUntilDone();
         // intake block 
         intakeFunctionAuton(intakeBottom, 127);
@@ -126,8 +115,18 @@ void autonomous() {
         chassis.waitUntilDone();
         
         intakeFunctionAuton(intakeTop, 127);
-    
 
+    /*
+    int sel = ui::selected_auton();
+    pros::lcd::print(3, "Selected auton: %d", sel);
+    const auto& list = auton::Registry::instance().autons();
+    if (sel >= 0 && sel < (int)list.size()) {
+        auto a = list[sel];
+        if (a) a->run();
+    } else {
+        pros::lcd::print(4, "Invalid auton selection");
+    }
+    */
     
 
 }
