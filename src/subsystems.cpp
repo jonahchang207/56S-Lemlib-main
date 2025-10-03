@@ -21,7 +21,8 @@ lemlib::TrackingWheel horizontal(&horizontalEnc, lemlib::Omniwheel::NEW_2, -1.85
 lemlib::TrackingWheel vertical(&verticalEnc, lemlib::Omniwheel::NEW_2, -0.85);
 
 // drivetrain settings
-lemlib::Drivetrain drivetrain(&leftMotors, 
+lemlib::Drivetrain drivetrain(
+    &leftMotors, 
     &rightMotors, 
     14, 
     lemlib::Omniwheel::NEW_275, 
@@ -38,7 +39,7 @@ lemlib::ControllerSettings linearController(
     100, 
     3, 
     500, 
-    20);
+    100);
 
 // angular motion controller
 lemlib::ControllerSettings angularController(
