@@ -1,5 +1,4 @@
-#include "color_sort.hpp"
-#include "subsystems.hpp"
+#include "main.h"
 
 // Heuristic hue bands for red/blue detection under typical PROS Optical ranges [0..360)
 // Red often appears near 0 or near 360 wrap; blue around ~200-260 depending on lighting.

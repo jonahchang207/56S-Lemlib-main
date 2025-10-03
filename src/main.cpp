@@ -1,12 +1,19 @@
 #include "main.h"
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "touchscreen.hpp"
-
+#include "subsystems.hpp"
 
 // controller
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
-
+// odom offset functions 
+void check_odom_direction(){
+    pros::lcd::initialize(); // initialize brain screen
+    while (true) { // infinite loop
+        pros::lcd::print(1, "Rotation Sensor V: %i", verticalEnc.get_position());
+        pros::delay(10); // delay to save resources
+    }
+}
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -15,36 +22,19 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    pros::lcd::initialize(); // initialize brain screen
+    //pros::lcd::initialize(); // initialize brain screen
     chassis.calibrate(); // calibrate sensors
 
      // clear the brain LCD after LVGL takes over to avoid overlapping output
     pros::lcd::clear();
 
+    //check_odom_direction();
+
     // initialize touchscreen UI (LVGL)
     touchscreen_int();
    
 
-    int sel = ui::selected_auton();
-    pros::lcd::print(3, "Selected auton: %d", sel);
     
-    switch(sel) {
-        case 0:
-            blueWqeAuton();
-            break;
-        case 1:
-            redWqeAuton();
-            break;
-        case 2:
-            skillsAuton();
-            break;
-        case 3:
-            doNothingAuton();
-            break;
-        default:
-            pros::lcd::print(4, "Invalid auton selection");
-            break;
-    }
 }
 
 /**
@@ -69,66 +59,32 @@ ASSET(example_txt); // '.' replaced with "_" to make c++ happy
 void autonomous() {
     // show which auton was selected on the brain screen
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-    
-    chassis.setPose(61, 16, 270);
-        
-        intakeFunctionAuton( intakeMid,127);
-        chassis.moveToPose(27, 25, 230, 4000,{.forwards = true , .minSpeed=70});
-        chassis.waitUntilDone();
-        // to the mid goal
-        chassis.moveToPose(11, 12, 230, 4000,{.forwards = true , .minSpeed=80});
-        chassis.waitUntilDone();
-        // intake block 
-        intakeFunctionAuton(intakeBottom, 127);
-        pros::delay(1500);
-        intakeFunctionAuton(intakeMid, 127);
-        // got ot the first match load
-        chassis.moveToPose(27, 25, 230, 4000,{.forwards = false , .minSpeed=45});
-        chassis.moveToPose(60, 47, 0, 4000,{.forwards = true , .minSpeed=45});
-        chassis.waitUntilDone();
 
-        intakeFunctionAuton(intakeMid, 127);
-        pros::delay(1500);
-        // go to high goal then score on high goal 1 
-        chassis.moveToPose(31, 47, 0, 4000,{.forwards = false , .minSpeed=45});
-        chassis.waitUntilDone();
-
-        intakeFunctionAuton(intakeTop, 127);
-        pros::delay(1500);
-        intakeFunctionAuton(intakeMid, 127);
-
-        chassis.moveToPose(42, 47, 0, 4000,{.forwards = true , .minSpeed=45});
-        chassis.waitUntilDone();
-
-        // to next 3 ball group 
-        chassis.moveToPoint(22, -22, 4000,{.forwards = false , .minSpeed=45});
-        chassis.waitUntilDone();
-
-        // intake 3 balls from match load 
-        chassis.moveToPose(58, -47, 0, 4000,{.forwards = true , .minSpeed=45});
-        chassis.waitUntilDone();
-
-        intakeFunctionAuton(intakeMid, 127);
-        pros::delay(1500);
-        //final high goal score
-        chassis.moveToPose(32, -47, 0, 4000,{.forwards = false , .minSpeed=45});
-        chassis.waitUntilDone();
-        
-        intakeFunctionAuton(intakeTop, 127);
-
+    chassis.turnToHeading(180,99999999,{.maxSpeed = 90},false); 
     /*
     int sel = ui::selected_auton();
     pros::lcd::print(3, "Selected auton: %d", sel);
-    const auto& list = auton::Registry::instance().autons();
-    if (sel >= 0 && sel < (int)list.size()) {
-        auto a = list[sel];
-        if (a) a->run();
-    } else {
-        pros::lcd::print(4, "Invalid auton selection");
+    
+    switch(sel) {
+        case 0:
+            blueWqeAuton();
+            break;
+        case 1:
+            redWqeAuton();
+            break;
+        case 2:
+            skillsAuton();
+            break;
+        case 3:
+            doNothingAuton();
+            break;
+        default:
+            pros::lcd::print(4, "Invalid auton selection");
+            break;
     }
     */
     
-
+    
 }
 
 /**
@@ -137,6 +93,7 @@ void autonomous() {
 void opcontrol() {
     // controller
     // loop to continuously update motors
+    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
     while (true) {
         // get joystick positions
         int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);

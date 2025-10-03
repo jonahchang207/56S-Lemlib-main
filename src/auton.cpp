@@ -3,42 +3,48 @@
 
 void blueWqeAuton() {
     chassis.setPose(61, 16, 270);
-    
-    intakeFunctionAuton(intakeMid, 127);
-    chassis.moveToPose(27, 25, 230, 4000, {.forwards = true, .minSpeed = 45},false);
-
-    chassis.moveToPose(13.6, 12.8, 230, 4000, {.forwards = true, .minSpeed = 45},false);
-     
-    
+        
+    intakeFunctionAuton( intakeMid,127);
+    chassis.moveToPose(27, 25, 230, 4000,{.forwards = true , .minSpeed=70});
+    chassis.waitUntilDone();
+    // to the mid goal
+    chassis.moveToPose(11, 12, 230, 4000,{.forwards = true , .minSpeed=80});
+    chassis.waitUntilDone();
+    // intake block 
     intakeFunctionAuton(intakeBottom, 127);
     pros::delay(1500);
     intakeFunctionAuton(intakeMid, 127);
-
-    chassis.moveToPose(27, 25, 230, 4000, {.forwards = false, .minSpeed = 45},false);
-
-    chassis.moveToPose(60, 47, 0, 4000, {.forwards = true, .minSpeed = 45},false);
+    // got ot the first match load
+    chassis.moveToPose(27, 25, 230, 4000,{.forwards = false , .minSpeed=45});
+    chassis.moveToPose(60, 47, 0, 4000,{.forwards = true , .minSpeed=45});
+    chassis.waitUntilDone();
 
     intakeFunctionAuton(intakeMid, 127);
     pros::delay(1500);
+    // go to high goal then score on high goal 1 
+    chassis.moveToPose(31, 47, 0, 4000,{.forwards = false , .minSpeed=45});
+    chassis.waitUntilDone();
 
-    chassis.moveToPose(31, 47, 0, 4000, {.forwards = false, .minSpeed = 45},false);
-
-    
     intakeFunctionAuton(intakeTop, 127);
     pros::delay(1500);
     intakeFunctionAuton(intakeMid, 127);
 
-    chassis.moveToPose(42, 47, 0, 4000, {.forwards = true, .minSpeed = 45},false);
+    chassis.moveToPose(42, 47, 0, 4000,{.forwards = true , .minSpeed=45});
+    chassis.waitUntilDone();
 
-    chassis.moveToPoint(22, -22, 4000, {.forwards = false, .minSpeed = 45},false);
+    // to next 3 ball group 
+    chassis.moveToPoint(22, -22, 4000,{.forwards = false , .minSpeed=45});
+    chassis.waitUntilDone();
 
-    chassis.moveToPose(58, -47, 0, 4000, {.forwards = true, .minSpeed = 45},false);
+    // intake 3 balls from match load 
+    chassis.moveToPose(58, -47, 0, 4000,{.forwards = true , .minSpeed=45});
+    chassis.waitUntilDone();
 
     intakeFunctionAuton(intakeMid, 127);
     pros::delay(1500);
-
-    chassis.moveToPose(32, -47, 0, 4000, {.forwards = false, .minSpeed = 45},false);
-
+    //final high goal score
+    chassis.moveToPose(32, -47, 0, 4000,{.forwards = false , .minSpeed=45});
+    chassis.waitUntilDone();
     
     intakeFunctionAuton(intakeTop, 127);
 }

@@ -44,6 +44,7 @@
 #include "api.h" // IWYU pragma: keep
 #include "intake_function.hpp" // IWYU pragma: keep
 #include "subsystems.hpp" // IWYU pragma: keep
+#include "color_sort.hpp" // IWYU pragma: keep
 #include "touchscreen.hpp" // IWYU pragma: keep
 // Auton registry and definitions
 #include "auton/auton.hpp" // IWYU pragma: keep

@@ -6,7 +6,6 @@
 #include "pros/rtos.hpp"     // IWYU pragma: keep
 #include "liblvgl/lvgl.h"    // IWYU pragma: keep
 #include "pros/misc.hpp"     // IWYU pragma: keep
-#include "EZ-Template/api.hpp" // IWYU pragma: keep
 #include "pros/misc.hpp"      // IWYU pragma: keep
 #include "api.h" // IWYU pragma: keep
 #include "pros/imu.hpp"

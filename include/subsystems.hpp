@@ -1,6 +1,6 @@
 #pragma once
 #include "lemlib/api.hpp" // IWYU pragma: keep
-
+#include "pros/optical.hpp"
 // Subsystems header: declares motors, motor groups, sensors, drivetrain and settings
 
 // Controller (already declared in main.h as extern)
@@ -32,3 +32,5 @@ extern lemlib::ExpoDriveCurve steerCurve;
 
 // Chassis
 extern lemlib::Chassis chassis;
+
+extern pros::Optical optical;
