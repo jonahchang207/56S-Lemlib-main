@@ -54,13 +54,13 @@ pros upload
 ## Project Structure
 
 56S-Lemlib-main/
-**├── src/              # Source files
-**│   └── main.cpp      # Main program logic
-**├── include/          # Header files
-**│   └── main.h        # Main header declarations
-**├── firmware/         # VEX firmware
-**├── Makefile          # Build configuration
-**└── project.pros      # PROS project settings
+├── src/              # Source files
+│   └── main.cpp      # Main program logic
+├── include/          # Header files
+│   └── main.h        # Main header declarations
+├── firmware/         # VEX firmware
+├── Makefile          # Build configuration
+└── project.pros      # PROS project settings
 
 ## Configuration
 
