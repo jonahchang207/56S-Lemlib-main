@@ -34,3 +34,5 @@ extern lemlib::ExpoDriveCurve steerCurve;
 extern lemlib::Chassis chassis;
 
 extern pros::Optical optical;
+extern pros::adi::Pneumatics flap; // Pneumatic piston on ADI port C
+extern pros::adi::Pneumatics furrydescoremech; // Pneumatic piston on ADI port A

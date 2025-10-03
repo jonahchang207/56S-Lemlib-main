@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/adi.hpp"
 #include "pros/optical.hpp"
 #include "subsystems.hpp"
 
@@ -31,21 +32,21 @@ lemlib::Drivetrain drivetrain(
 
 // lateral motion controller TUNED DONT TOUCH)
 lemlib::ControllerSettings linearController(
-    24, 
+    30, 
     0, 
-    99.7, 
+    200, 
     3, 
     1, 
     100, 
     3, 
     500, 
-    100);
+    20);
 
 // angular motion controller
 lemlib::ControllerSettings angularController(
     2.9, 
     0, 
-    15, 
+    19, 
     3, 
     1, 
     100, 
@@ -54,7 +55,8 @@ lemlib::ControllerSettings angularController(
     0);
 
 // sensors for odometry
-lemlib::OdomSensors sensors(&vertical, 
+lemlib::OdomSensors sensors(
+    &vertical, 
     nullptr, 
     &horizontal, 
     nullptr, 
@@ -77,5 +79,5 @@ pros::Motor intake1(12,pros::v5::MotorGears::blue);
 pros::Motor intake2(11,pros::v5::MotorGears::blue);
 pros::Optical optical(8); // Optical sensor on port 8
 
-
-
+pros::adi::Pneumatics flap('C', true); // Pneumatic piston on ADI port C
+pros::adi::Pneumatics furrydescoremech('D', false); // Pneumatic piston on ADI port A

@@ -29,7 +29,7 @@ void initialize() {
     pros::lcd::clear();
 
     //check_odom_direction();
-
+    
     // initialize touchscreen UI (LVGL)
     touchscreen_int();
    
@@ -60,7 +60,11 @@ void autonomous() {
     // show which auton was selected on the brain screen
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 
-    chassis.turnToHeading(180,99999999,{.maxSpeed = 90},false); 
+    //for turning tuning
+    //chassis.turnToHeading(180,99999999,{.maxSpeed = 90},false); 
+    // for driving tuning
+    //chassis.moveToPoint(0,24,9999999999, {.maxSpeed = 90},false);
+    blueWqeAuton(); 
     /*
     int sel = ui::selected_auton();
     pros::lcd::print(3, "Selected auton: %d", sel);
@@ -103,6 +107,12 @@ void opcontrol() {
         // delay to save resources
         intakeFunction(); // run intake function
         pros::delay(10);
-        
+
+        if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
+            flap.toggle(); // extend
+        }
+        if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+            furrydescoremech.toggle(); // extend
+        }
     }
 }

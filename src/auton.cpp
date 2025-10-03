@@ -1,9 +1,11 @@
+#include "color_sort.hpp"
 #include "main.h"
 #include "auton/auton.hpp"
 
 void blueWqeAuton() {
+    autonColorSort(SortColorBlue, true);
     chassis.setPose(61, 16, 270);
-        
+    
     intakeFunctionAuton( intakeMid,127);
     chassis.moveToPose(27, 25, 230, 4000,{.forwards = true , .minSpeed=70});
     chassis.waitUntilDone();
